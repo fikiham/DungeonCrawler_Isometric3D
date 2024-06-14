@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class VfxShooter : MonoBehaviour
 {
     Player_Movement pm;
+    VfxPool pool;
 
     [SerializeField] GameObject Vfx_GroundSlash;
     [SerializeField] float slashSpd = 10;
@@ -13,6 +17,7 @@ public class VfxShooter : MonoBehaviour
     void Start()
     {
         pm = GetComponent<Player_Movement>();
+        pool = VfxPool.instance;
     }
 
     // Update is called once per frame
@@ -24,9 +29,23 @@ public class VfxShooter : MonoBehaviour
             var rotation = Quaternion.LookRotation(vectorTarget);
             rotation.x = 0;
             rotation.z = 0;
-            var theSlash = Instantiate(Vfx_GroundSlash, transform.position - Vector3.up, rotation, transform);
-            theSlash.GetComponent<Rigidbody>().velocity = vectorTarget * slashSpd;
-            Destroy(theSlash, 10);
+            ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget);
         }
+    }
+
+    void ShootVfx(VfxList vfx, Vector3 pos, Quaternion rot, Vector3 target)
+    {
+        var theVfx = pool.GetVfx(vfx, pos, rot);
+        if (theVfx != null)
+        {
+            theVfx.GetComponent<Rigidbody>().velocity = target * slashSpd;
+            StartCoroutine(ReturnVfx(5, theVfx));
+        }
+    }
+
+    IEnumerator ReturnVfx(float delay, GameObject vfx)
+    {
+        yield return new WaitForSeconds(delay);
+        pool.ReturnVfx(vfx);
     }
 }
