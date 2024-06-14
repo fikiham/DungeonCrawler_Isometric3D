@@ -6,7 +6,8 @@ using UnityEngine;
 [Serializable]
 public enum VfxList
 {
-    GroundSlash
+    GroundSlash,
+    Fireball
 }
 
 public class VfxPool : MonoBehaviour
@@ -17,10 +18,11 @@ public class VfxPool : MonoBehaviour
     class vfxPrefab
     {
         public VfxList name;
+        public int count;
         public GameObject prefab;
     }
     [SerializeField] List<vfxPrefab> pool;
-    [HideInInspector] public Dictionary<VfxList, GameObject> Pool = new();
+    [HideInInspector] public Dictionary<VfxList, Queue<GameObject>> Pool = new();
 
     private void Awake()
     {
@@ -38,25 +40,32 @@ public class VfxPool : MonoBehaviour
     {
         foreach (var vfx in pool)
         {
-            var theVfx = Instantiate(vfx.prefab, transform);
-            theVfx.SetActive(false);
-            Pool.Add(vfx.name, theVfx);
+            Queue<GameObject> queue = new();
+            for (int i = 0; i < vfx.count; i++)
+            {
+                var theVfx = Instantiate(vfx.prefab, transform);
+                theVfx.AddComponent<PooledObject>().pool = this;
+                theVfx.GetComponent<PooledObject>().thisVfx = vfx.name;
+                theVfx.SetActive(false);
+                queue.Enqueue(theVfx);
+            }
+            Pool.Add(vfx.name, queue);
         }
 
     }
 
     public GameObject GetVfx(VfxList key, Vector3 pos, Quaternion rot)
     {
-        GameObject theVfx = Pool[key];
-        if (theVfx.activeInHierarchy)
+        if (!Pool[key].TryDequeue(out GameObject theVfx))
             return null;
         theVfx.transform.SetPositionAndRotation(pos, rot);
         theVfx.SetActive(true);
         return theVfx;
     }
 
-    public void ReturnVfx(GameObject vfx)
+    public void ReturnVfx(PooledObject vfx)
     {
-        vfx.SetActive(false);
+        vfx.gameObject.SetActive(false);
+        Pool[vfx.thisVfx].Enqueue(vfx.gameObject);
     }
 }

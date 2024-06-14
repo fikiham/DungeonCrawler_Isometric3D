@@ -11,7 +11,8 @@ public class VfxShooter : MonoBehaviour
     VfxPool pool;
 
     [SerializeField] GameObject Vfx_GroundSlash;
-    [SerializeField] float slashSpd = 10;
+    [SerializeField] float vfxSpd = 20;
+    [SerializeField] float vfxLifetime = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -29,23 +30,36 @@ public class VfxShooter : MonoBehaviour
             var rotation = Quaternion.LookRotation(vectorTarget);
             rotation.x = 0;
             rotation.z = 0;
-            ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget);
+            //StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
+            StartCoroutine(ShootVfx(VfxList.Fireball, transform.position - Vector3.up, rotation, vectorTarget));
         }
     }
 
-    void ShootVfx(VfxList vfx, Vector3 pos, Quaternion rot, Vector3 target)
+    IEnumerator ShootVfx(VfxList vfx, Vector3 pos, Quaternion rot, Vector3 target)
     {
+        float vfxTimer = 0;
+        float vfxLerp = 0;
         var theVfx = pool.GetVfx(vfx, pos, rot);
         if (theVfx != null)
         {
-            theVfx.GetComponent<Rigidbody>().velocity = target * slashSpd;
-            StartCoroutine(ReturnVfx(5, theVfx));
+            while (true)
+            {
+                vfxTimer += Time.deltaTime;
+                vfxLerp = vfxTimer / vfxLifetime;
+                theVfx.GetComponent<Rigidbody>().velocity = Vector3.Lerp(target * vfxSpd, Vector3.zero, vfxLerp);
+                if (vfxTimer > vfxLifetime)
+                {
+                    break;
+                }
+                yield return null;
+            }
+            StartCoroutine(ReturnVfx(1, theVfx));
         }
     }
 
     IEnumerator ReturnVfx(float delay, GameObject vfx)
     {
         yield return new WaitForSeconds(delay);
-        pool.ReturnVfx(vfx);
+        vfx.GetComponent<PooledObject>().Return();
     }
 }
