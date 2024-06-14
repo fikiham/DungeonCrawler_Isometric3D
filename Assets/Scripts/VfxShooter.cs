@@ -24,14 +24,24 @@ public class VfxShooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            var vectorTarget = (pm.GetFace().position - transform.position);
+            var rotation = Quaternion.LookRotation(vectorTarget);
+            rotation.x = 0;
+            rotation.z = 0;
+            StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
+            //StartCoroutine(ShootVfx(VfxList.Fireball, transform.position - Vector3.up, rotation, vectorTarget));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             var vectorTarget = (pm.GetFace().position - transform.position);
             var rotation = Quaternion.LookRotation(vectorTarget);
             rotation.x = 0;
             rotation.z = 0;
             //StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
-            StartCoroutine(ShootVfx(VfxList.Fireball, transform.position - Vector3.up, rotation, vectorTarget));
+            StartCoroutine(ShootVfx(VfxList.Fireball, transform.position, rotation, vectorTarget));
         }
     }
 
@@ -42,17 +52,37 @@ public class VfxShooter : MonoBehaviour
         var theVfx = pool.GetVfx(vfx, pos, rot);
         if (theVfx != null)
         {
-            while (true)
+            switch (theVfx.GetComponent<PooledObject>().type)
             {
-                vfxTimer += Time.deltaTime;
-                vfxLerp = vfxTimer / vfxLifetime;
-                theVfx.GetComponent<Rigidbody>().velocity = Vector3.Lerp(target * vfxSpd, Vector3.zero, vfxLerp);
-                if (vfxTimer > vfxLifetime)
-                {
+                
+                case VfxType.UnlimitedRange:
+                    while (true)
+                    {
+                        vfxTimer += Time.deltaTime;
+                        theVfx.GetComponent<Rigidbody>().velocity = target * vfxSpd;
+                        if (vfxTimer > vfxLifetime)
+                        {
+                            break;
+                        }
+                        yield return null;
+                    }
                     break;
-                }
-                yield return null;
+                case VfxType.LimitedRange:
+                    while (true)
+                    {
+                        vfxTimer += Time.deltaTime;
+                        vfxLerp = vfxTimer / vfxLifetime;
+                        theVfx.GetComponent<Rigidbody>().velocity = Vector3.Lerp(target * vfxSpd, Vector3.zero, vfxLerp);
+                        if (vfxTimer > vfxLifetime)
+                        {
+                            break;
+                        }
+                        yield return null;
+                    }
+                    break;
+
             }
+
             StartCoroutine(ReturnVfx(1, theVfx));
         }
     }

@@ -7,7 +7,17 @@ using UnityEngine;
 public enum VfxList
 {
     GroundSlash,
-    Fireball
+    Fireball,
+    FireExplosion
+}
+
+[Serializable]
+public enum VfxType
+{
+    UnlimitedRange,
+    LimitedRange,
+    Melee,
+    TrailThenExplosion
 }
 
 public class VfxPool : MonoBehaviour
@@ -18,6 +28,7 @@ public class VfxPool : MonoBehaviour
     class vfxPrefab
     {
         public VfxList name;
+        public VfxType type;
         public int count;
         public GameObject prefab;
     }
@@ -44,8 +55,10 @@ public class VfxPool : MonoBehaviour
             for (int i = 0; i < vfx.count; i++)
             {
                 var theVfx = Instantiate(vfx.prefab, transform);
-                theVfx.AddComponent<PooledObject>().pool = this;
-                theVfx.GetComponent<PooledObject>().thisVfx = vfx.name;
+                PooledObject obj = theVfx.AddComponent<PooledObject>();
+                obj.pool = this;
+                obj.thisVfx = vfx.name;
+                obj.type = vfx.type;
                 theVfx.SetActive(false);
                 queue.Enqueue(theVfx);
             }
