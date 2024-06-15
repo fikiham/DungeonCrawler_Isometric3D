@@ -14,6 +14,8 @@ public class VfxShooter : MonoBehaviour
     [SerializeField] float vfxSpd = 20;
     [SerializeField] float vfxLifetime = 20;
 
+    bool toggle = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,26 +28,27 @@ public class VfxShooter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            var vectorTarget = (pm.GetFace().position - transform.position);
-            var rotation = Quaternion.LookRotation(vectorTarget);
-            rotation.x = 0;
-            rotation.z = 0;
-            //StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
-            StartCoroutine(ShootVfx(VfxList.Lightning, transform.position - Vector3.up, rotation, vectorTarget));
+            toggle = !toggle;
+            Shoot(toggle ? VfxList.Lightning : VfxList.GroundSlash, transform.position - Vector3.up);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            var vectorTarget = (pm.GetFace().position - transform.position);
-            var rotation = Quaternion.LookRotation(vectorTarget);
-            rotation.x = 0;
-            rotation.z = 0;
-            //StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
-            StartCoroutine(ShootVfx(VfxList.Fireball, transform.position, rotation, vectorTarget));
+            Shoot(VfxList.Fireball, transform.position);
         }
     }
 
-    IEnumerator ShootVfx(VfxList vfx, Vector3 pos, Quaternion rot, Vector3 target)
+    public void Shoot(VfxList vfx, Vector3 pos)
+    {
+        var vectorTarget = (pm.GetFace().position - transform.position);
+        var rotation = Quaternion.LookRotation(vectorTarget);
+        rotation.x = 0;
+        rotation.z = 0;
+        StartCoroutine(ShootingVfx(vfx, pos, rotation, vectorTarget));
+
+    }
+
+    IEnumerator ShootingVfx(VfxList vfx, Vector3 pos, Quaternion rot, Vector3 target)
     {
         float vfxTimer = 0;
         float vfxLerp = 0;
@@ -83,22 +86,13 @@ public class VfxShooter : MonoBehaviour
                     StartCoroutine(ReturnVfx(1, theVfx));
                     break;
                 case VfxType.Other:
-                    while (true)
+                    if (vfx == VfxList.Lightning)
                     {
-                        if (vfx == VfxList.Lightning)
-                            theVfx.GetComponent<VfxLightning>().SetupLightning(target, 10, 3, 1);
-                        vfxTimer += Time.deltaTime;
-                        if (vfxTimer > vfxLifetime)
-                        {
-                            break;
-                        }
-                        yield return null;
+                        theVfx.transform.position += target.normalized * 2;
+                        theVfx.GetComponent<VfxLightning>().SetupLightning(target, 10, 3, .5f);
                     }
                     break;
-
             }
-
-            
         }
     }
 

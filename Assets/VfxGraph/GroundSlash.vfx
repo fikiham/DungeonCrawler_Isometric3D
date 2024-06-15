@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 939
     y: -230
     width: 2562
-    height: 2064
+    height: 2104
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,7 +135,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614580}
   - {fileID: 8926484042661614618}
   - {fileID: 8926484042661614624}
-  m_UIPosition: {x: 941.3827, y: 114.57214}
+  m_UIPosition: {x: 941, y: 258}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 941, y: 674}
+  m_UIPosition: {x: 941, y: 871}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -891,7 +891,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614635}
   - {fileID: 8926484042661614641}
   - {fileID: 8926484042661614647}
-  m_UIPosition: {x: 946, y: 826}
+  m_UIPosition: {x: 946, y: 1023}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -900,7 +900,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614612}
   - {fileID: 8926484042661614613}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: THE SLASH
   m_Data: {fileID: 8926484042661614568}
   m_InputFlowSlot:
   - link:
@@ -908,7 +908,7 @@ MonoBehaviour:
       slotIndex: 0
   m_OutputFlowSlot:
   - link: []
-  blendMode: 0
+  blendMode: 1
   cullMode: 3
   zWriteMode: 0
   zTestMode: 0
@@ -921,7 +921,7 @@ MonoBehaviour:
   uvMode: 0
   flipbookLayout: 0
   useSoftParticle: 1
-  vfxSystemSortPriority: 0
+  vfxSystemSortPriority: 3
   sort: 0
   sortMode: 0
   revertSorting: 0
@@ -1917,7 +1917,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.0,"y":4.51544189453125,"z":5.992156982421875}'
+      m_SerializableObject: '{"x":0.0,"y":18.061767578125,"z":23.9686279296875}'
     m_Space: 2147483647
   m_Property:
     name: Color
@@ -2866,7 +2866,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 1658, y: 713}
+  m_UIPosition: {x: 1658, y: 715}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -3808,7 +3808,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614729}
   - {fileID: 8926484042661614734}
   - {fileID: 8926484042661614740}
-  m_UIPosition: {x: 1656, y: 865}
+  m_UIPosition: {x: 1656, y: 867}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -4549,7 +4549,7 @@ MonoBehaviour:
   uvMode: 0
   flipbookLayout: 0
   useSoftParticle: 0
-  vfxSystemSortPriority: 0
+  vfxSystemSortPriority: 1
   sort: 0
   sortMode: 0
   revertSorting: 0
@@ -6696,7 +6696,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661614941}
   - {fileID: 8926484042661614948}
-  m_UIPosition: {x: 3073, y: 752}
+  m_UIPosition: {x: 3073, y: 772}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -6734,7 +6734,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614894}
   - {fileID: 8926484042661614908}
   - {fileID: 8926484042661614913}
-  m_UIPosition: {x: 3077, y: 1159}
+  m_UIPosition: {x: 3077, y: 1179}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -6744,7 +6744,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614989}
   - {fileID: 8926484042661614889}
   m_OutputSlots: []
-  m_Label: 
+  m_Label: DEBRIES
   m_Data: {fileID: 8926484042661614792}
   m_InputFlowSlot:
   - link:
@@ -6765,7 +6765,7 @@ MonoBehaviour:
   uvMode: 0
   flipbookLayout: 0
   useSoftParticle: 0
-  vfxSystemSortPriority: 0
+  vfxSystemSortPriority: 2
   sort: 0
   sortMode: 0
   revertSorting: 0

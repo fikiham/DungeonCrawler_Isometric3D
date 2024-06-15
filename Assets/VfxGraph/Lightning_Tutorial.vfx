@@ -2138,7 +2138,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":5.891082286834717,"b":31.999996185302736,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":16.8240966796875,"b":32.0,"a":1.0},"time":0.5117723345756531},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.1117723360657692},{"alpha":1.0,"time":0.5176470875740051},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":5.891082286834717,"b":31.999996185302736,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.22941939532756806},{"color":{"r":0.0,"g":16.8240966796875,"b":32.0,"a":1.0},"time":0.5117723345756531},{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.1117723360657692},{"alpha":1.0,"time":0.17941558361053468},{"alpha":0.0,"time":0.23529411852359773},{"alpha":0.0,"time":0.4294193983078003},{"alpha":1.0,"time":0.5176470875740051},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: gradient
@@ -3754,7 +3754,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":-0.003963448107242584,"inTangent":-0.3623722791671753,"outTangent":-0.3623722791671753,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.44427260756492617,"value":-0.17883042991161347,"inTangent":-0.2150748372077942,"outTangent":-0.2150748372077942,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.9969467520713806,"value":-0.30267879366874697,"inTangent":0.0,"outTangent":0.0,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.38333338499069216,"value":-0.0020844824612140657,"inTangent":-1.968536615371704,"outTangent":-1.968536615371704,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.5662445425987244,"value":-0.19010421633720399,"inTangent":-0.4061545729637146,"outTangent":-0.4061545729637146,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.9969467520713806,"value":-0.30267879366874697,"inTangent":0.0,"outTangent":0.0,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: 2147483647
   m_Property:
     name: curve
