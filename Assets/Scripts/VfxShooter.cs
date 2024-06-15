@@ -30,8 +30,8 @@ public class VfxShooter : MonoBehaviour
             var rotation = Quaternion.LookRotation(vectorTarget);
             rotation.x = 0;
             rotation.z = 0;
-            StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
-            //StartCoroutine(ShootVfx(VfxList.Fireball, transform.position - Vector3.up, rotation, vectorTarget));
+            //StartCoroutine(ShootVfx(VfxList.GroundSlash, transform.position - Vector3.up, rotation, vectorTarget));
+            StartCoroutine(ShootVfx(VfxList.Lightning, transform.position - Vector3.up, rotation, vectorTarget));
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -54,7 +54,7 @@ public class VfxShooter : MonoBehaviour
         {
             switch (theVfx.GetComponent<PooledObject>().type)
             {
-                
+
                 case VfxType.UnlimitedRange:
                     while (true)
                     {
@@ -66,6 +66,7 @@ public class VfxShooter : MonoBehaviour
                         }
                         yield return null;
                     }
+                    StartCoroutine(ReturnVfx(1, theVfx));
                     break;
                 case VfxType.LimitedRange:
                     while (true)
@@ -79,11 +80,25 @@ public class VfxShooter : MonoBehaviour
                         }
                         yield return null;
                     }
+                    StartCoroutine(ReturnVfx(1, theVfx));
+                    break;
+                case VfxType.Other:
+                    while (true)
+                    {
+                        if (vfx == VfxList.Lightning)
+                            theVfx.GetComponent<VfxLightning>().SetupLightning(target, 10, 3, 1);
+                        vfxTimer += Time.deltaTime;
+                        if (vfxTimer > vfxLifetime)
+                        {
+                            break;
+                        }
+                        yield return null;
+                    }
                     break;
 
             }
 
-            StartCoroutine(ReturnVfx(1, theVfx));
+            
         }
     }
 

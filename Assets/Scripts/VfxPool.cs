@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Search;
 using UnityEngine;
 
 [Serializable]
@@ -8,7 +10,8 @@ public enum VfxList
 {
     GroundSlash,
     Fireball,
-    FireExplosion
+    FireExplosion,
+    Lightning
 }
 
 [Serializable]
@@ -17,7 +20,7 @@ public enum VfxType
     UnlimitedRange,
     LimitedRange,
     Melee,
-    TrailThenExplosion
+    Other
 }
 
 public class VfxPool : MonoBehaviour
@@ -70,7 +73,17 @@ public class VfxPool : MonoBehaviour
     public GameObject GetVfx(VfxList key, Vector3 pos, Quaternion rot)
     {
         if (!Pool[key].TryDequeue(out GameObject theVfx))
-            return null;
+        {
+            vfxPrefab thePrefab = pool.First(x => x.name == key);
+            theVfx = Instantiate(thePrefab.prefab, transform);
+            PooledObject obj = theVfx.AddComponent<PooledObject>();
+            obj.pool = this;
+            obj.thisVfx = thePrefab.name;
+            obj.type = thePrefab.type;
+            theVfx.SetActive(false);
+            Pool.First(x => x.Key == key).Value.Enqueue(theVfx);
+            return theVfx;
+        }
         theVfx.transform.SetPositionAndRotation(pos, rot);
         theVfx.SetActive(true);
         return theVfx;
@@ -78,7 +91,15 @@ public class VfxPool : MonoBehaviour
 
     public void ReturnVfx(PooledObject vfx)
     {
-        vfx.gameObject.SetActive(false);
-        Pool[vfx.thisVfx].Enqueue(vfx.gameObject);
+        // Destroy if pool is full, otherwise just queue it back
+        if (Pool[vfx.thisVfx].Count >= pool.First(x => x.name == vfx.thisVfx).count)
+        {
+            Destroy(vfx.gameObject);
+        }
+        else
+        {
+            vfx.gameObject.SetActive(false);
+            Pool[vfx.thisVfx].Enqueue(vfx.gameObject);
+        }
     }
 }
