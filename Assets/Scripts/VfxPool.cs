@@ -9,6 +9,7 @@ using UnityEngine;
 public enum VfxList
 {
     GroundSlash,
+    GroundSlash_Triple,
     Fireball,
     FireExplosion,
     Lightning

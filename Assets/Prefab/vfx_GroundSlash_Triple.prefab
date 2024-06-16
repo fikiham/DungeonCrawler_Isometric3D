@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4770018656709963697}
   - component: {fileID: 2338123853280948507}
   m_Layer: 0
-  m_Name: vfx_GroundSlash
+  m_Name: vfx_GroundSlash_Triple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
