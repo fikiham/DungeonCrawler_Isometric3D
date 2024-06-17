@@ -29,7 +29,8 @@ public class VfxShooter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             toggle = !toggle;
-            Shoot(toggle ? VfxList.Lightning : VfxList.GroundSlash, transform.position - Vector3.up);
+            //Shoot(toggle ? VfxList.Lightning : VfxList.GroundSlash, transform.position - Vector3.up);
+            Shoot(toggle ? VfxList.GroundSlash_Triple : VfxList.GroundSlash, transform.position - Vector3.up);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -53,12 +54,16 @@ public class VfxShooter : MonoBehaviour
         float vfxTimer = 0;
         float vfxLerp = 0;
         var theVfx = pool.GetVfx(vfx, pos, rot);
+
         if (theVfx != null)
         {
+            theVfx.TryGetComponent<VfxChildren>(out var child);
+
             switch (theVfx.GetComponent<PooledObject>().type)
             {
-
                 case VfxType.UnlimitedRange:
+                    child?.Setup();
+                    theVfx.name = "THE ORIGINAL";
                     while (true)
                     {
                         vfxTimer += Time.deltaTime;
@@ -69,9 +74,10 @@ public class VfxShooter : MonoBehaviour
                         }
                         yield return null;
                     }
-                    StartCoroutine(ReturnVfx(1, theVfx));
+                    StartCoroutine(ReturnVfx(2, theVfx));
                     break;
                 case VfxType.LimitedRange:
+                    child?.Setup();
                     while (true)
                     {
                         vfxTimer += Time.deltaTime;
@@ -83,13 +89,13 @@ public class VfxShooter : MonoBehaviour
                         }
                         yield return null;
                     }
-                    StartCoroutine(ReturnVfx(1, theVfx));
+                    StartCoroutine(ReturnVfx(2, theVfx));
                     break;
                 case VfxType.Other:
                     if (vfx == VfxList.Lightning)
                     {
                         theVfx.transform.position += target.normalized * 2;
-                        theVfx.GetComponent<VfxLightning>().SetupLightning(target, 10, 3, .5f);
+                        theVfx.GetComponent<VfxLightning>().Setup(target, 10, 3, .5f);
                     }
                     break;
             }
