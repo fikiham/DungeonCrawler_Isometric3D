@@ -12,7 +12,9 @@ public enum VfxList
     GroundSlash_Triple,
     Fireball,
     FireExplosion,
-    Lightning
+    Lightning,
+    Slash,
+    VerticalBeam
 }
 
 [Serializable]

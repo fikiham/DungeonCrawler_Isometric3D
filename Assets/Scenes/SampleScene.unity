@@ -649,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vfx_GroundSlash: {fileID: 3606417997238400619, guid: 34ca9c2adff4f4e4e8206f7d937298df,
     type: 3}
-  vfxSpd: 25
+  vfxSpd: 20
   vfxLifetime: 1
 --- !u!1001 &542905907
 PrefabInstance:
@@ -978,6 +978,15 @@ MonoBehaviour:
     type: 3
     count: 10
     prefab: {fileID: 1475947073205154853, guid: 2f49b20d082ba96438cdd3b7792bf2fd,
+      type: 3}
+  - name: 5
+    type: 1
+    count: 10
+    prefab: {fileID: 895795596693627895, guid: 3cb74f661be13ee4cb704353ddda9206, type: 3}
+  - name: 6
+    type: 3
+    count: 10
+    prefab: {fileID: 2295515507762830467, guid: db6f786674a6c814e950bece1a5fa6d0,
       type: 3}
 --- !u!1 &1964913618
 GameObject:

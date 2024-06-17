@@ -30,7 +30,7 @@ public class VfxShooter : MonoBehaviour
         {
             toggle = !toggle;
             //Shoot(toggle ? VfxList.Lightning : VfxList.GroundSlash, transform.position - Vector3.up);
-            Shoot(toggle ? VfxList.GroundSlash_Triple : VfxList.GroundSlash, transform.position - Vector3.up);
+            Shoot(toggle ? VfxList.VerticalBeam : VfxList.Slash, transform.position - Vector3.up);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -63,11 +63,10 @@ public class VfxShooter : MonoBehaviour
             {
                 case VfxType.UnlimitedRange:
                     child?.Setup();
-                    theVfx.name = "THE ORIGINAL";
+                    theVfx.GetComponent<Rigidbody>().velocity = target * vfxSpd;
                     while (true)
                     {
                         vfxTimer += Time.deltaTime;
-                        theVfx.GetComponent<Rigidbody>().velocity = target * vfxSpd;
                         if (vfxTimer > vfxLifetime)
                         {
                             break;
@@ -82,6 +81,7 @@ public class VfxShooter : MonoBehaviour
                     {
                         vfxTimer += Time.deltaTime;
                         vfxLerp = vfxTimer / vfxLifetime;
+                        vfxLerp *= vfxLerp;
                         theVfx.GetComponent<Rigidbody>().velocity = Vector3.Lerp(target * vfxSpd, Vector3.zero, vfxLerp);
                         if (vfxTimer > vfxLifetime)
                         {
