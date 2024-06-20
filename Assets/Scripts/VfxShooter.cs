@@ -35,7 +35,8 @@ public class VfxShooter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            Shoot(VfxList.Fireball, transform.position);
+            toggle = !toggle;
+            Shoot(toggle ? VfxList.Arrow : VfxList.Fireball, transform.position);
         }
     }
 
