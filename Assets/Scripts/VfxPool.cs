@@ -14,7 +14,8 @@ public enum VfxList
     FireExplosion,
     Lightning,
     Slash,
-    VerticalBeam
+    VerticalBeam,
+    Arrow
 }
 
 [Serializable]
