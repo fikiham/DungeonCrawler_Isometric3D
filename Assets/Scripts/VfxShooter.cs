@@ -10,11 +10,12 @@ public class VfxShooter : MonoBehaviour
     Player_Movement pm;
     VfxPool pool;
 
-    [SerializeField] GameObject Vfx_GroundSlash;
     [SerializeField] float vfxSpd = 20;
     [SerializeField] float vfxLifetime = 20;
 
     bool toggle = false;
+
+    public VfxList DesiredVfx = VfxList.Fireball;
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +31,14 @@ public class VfxShooter : MonoBehaviour
         {
             toggle = !toggle;
             //Shoot(toggle ? VfxList.Lightning : VfxList.GroundSlash, transform.position - Vector3.up);
-            Shoot(toggle ? VfxList.VerticalBeam : VfxList.Slash, transform.position - Vector3.up);
+            Shoot(DesiredVfx, transform.position - Vector3.up);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            toggle = !toggle;
-            Shoot(toggle ? VfxList.Arrow : VfxList.Fireball, transform.position);
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse1))
+        //{
+        //    toggle = !toggle;
+        //    Shoot(toggle ? VfxList.Arrow : VfxList.Fireball, transform.position);
+        //}
     }
 
     public void Shoot(VfxList vfx, Vector3 pos)
