@@ -14,12 +14,15 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float normalSpd = 1;
     [SerializeField] float chaseSpd = 10;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
+        Vector3 playerPos = transform.position;
+        playerPos.y = transform.position.y;
+        transform.position = playerPos;
         offset = transform.position - player.position;
         normalDistance = Vector3.Distance(player.position, transform.position);
     }
+
     private void LateUpdate()
     {
         if (Vector3.Distance(player.position, transform.position) > normalDistance + dampPosition)
