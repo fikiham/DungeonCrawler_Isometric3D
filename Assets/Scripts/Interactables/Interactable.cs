@@ -12,8 +12,8 @@ public abstract class Interactable : MonoBehaviour
             GetComponent<InteractionEvent>().OnInteract.Invoke();
         Interact();
     }
-    protected virtual void Interact()
+    public virtual void Interact()
     {
-
+        //LogManager.LogMessage(this, $"Interacted, prompt: {promptMessage}");
     }
 }

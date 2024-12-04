@@ -9,6 +9,7 @@ public class Player_Movement : MonoBehaviour
 
 
     [SerializeField] float moveSpd = 10;
+    const float MoveSpdMult = 1000;
 
 
     Vector3 inputs;
@@ -35,8 +36,8 @@ public class Player_Movement : MonoBehaviour
         if (inputs != Vector3.zero)
             face.localPosition = inputs;
 
-        movement.x = inputs.x * Time.deltaTime * moveSpd;
-        movement.z = inputs.z * Time.deltaTime * moveSpd;
+        movement.x = inputs.x * Time.deltaTime * MoveSpdMult * moveSpd;
+        movement.z = inputs.z * Time.deltaTime * MoveSpdMult * moveSpd;
         movement.y = rb.velocity.y;
 
 

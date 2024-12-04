@@ -6,7 +6,7 @@ public class WeaponsInteractable : Interactable
 {
     public VfxList WeaponEffect;
 
-    protected override void Interact()
+    public override void Interact()
     {
         base.Interact();
     }

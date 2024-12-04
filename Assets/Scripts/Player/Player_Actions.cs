@@ -26,12 +26,14 @@ public class Player_Actions : MonoBehaviour
     void Update()
     {
         player_Interacts.CheckInteractables(out var item);
-        promptText.text = item != null ? "Press F to " + item.promptMessage : string.Empty;
+        promptText.text = (item != null && item.promptMessage != string.Empty) ? "Press F to " + item.promptMessage : string.Empty;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (item != null)
             {
+                item.Interact();
+
                 if (item is WeaponsInteractable weapon)
                 {
                     vfxShooter.DesiredVfx = weapon.WeaponEffect;
