@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class VfxShooter : MonoBehaviour
 {
-    Player_Movement pm;
+    Player_Movement playerMovement;
     VfxPool pool;
+
+    [SerializeField] GameObject debugGameObject;
+    [SerializeField] float zDist;
+
 
     [SerializeField] float vfxSpd = 20;
     [SerializeField] float vfxLifetime = 20;
@@ -17,7 +21,7 @@ public class VfxShooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pm = GetComponent<Player_Movement>();
+        playerMovement = GetComponent<Player_Movement>();
         pool = VfxPool.instance;
     }
 
@@ -28,6 +32,8 @@ public class VfxShooter : MonoBehaviour
         {
             toggle = !toggle;
             //Shoot(toggle ? VfxList.Lightning : VfxList.GroundSlash, transform.position - Vector3.up);
+
+
             Shoot(DesiredVfx, transform.position - Vector3.up);
         }
 
@@ -40,7 +46,15 @@ public class VfxShooter : MonoBehaviour
 
     public void Shoot(VfxList vfx, Vector3 pos)
     {
-        var vectorTarget = (pm.GetFace().position - transform.position);
+        var vectorTarget = (playerMovement.GetFace().position - transform.position);
+
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = zDist;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        mousePos.y = transform.position.y;
+        debugGameObject.transform.position = mousePos;
+        vectorTarget = mousePos;
+
         var rotation = Quaternion.LookRotation(vectorTarget);
         rotation.x = 0;
         rotation.z = 0;
